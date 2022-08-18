@@ -14,7 +14,7 @@ By default `env=dev` and `port=5432` and are optional <br />
 
 # Install
 
-To setup run: `GOPRIVATE="github.com/bukukasio/*" go install github.com/bukukasio/lummo-sqlproxy@latest`
+MacOS: `brew install bukukasio/tools/lummo-sqlproxy`
 
 ## Prerequisites:
 
