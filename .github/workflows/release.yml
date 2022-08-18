@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        goos: [linux]
-        goarch: [amd64]
+        goos: [linux, darwin]
+        goarch: [amd64, arm64]
 
     steps:
     - uses: actions/checkout@v3
