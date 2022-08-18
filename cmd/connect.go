@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
@@ -86,6 +87,7 @@ func getInstance(env string) string {
 }
 
 func connectInstance(env string, port int) {
+	var userName string
 	sqlConnectionName := getInstance(env)
 	fmt.Println("Connecting Instance")
 	cmd := exec.Command("cloud_sql_proxy", "-enable_iam_login", "-instances="+sqlConnectionName+"=tcp:"+strconv.Itoa(port))
@@ -95,8 +97,18 @@ func connectInstance(env string, port int) {
 		log.Fatal(err)
 	}
 	log.Printf("Cloudsql proxy process is running in background, process_id: %d\n", cmd.Process.Pid)
+
+	command := fmt.Sprintf("gcloud auth list --filter=status:ACTIVE --format='value(account)'")
+	user := exec.Command("bash", "-c", command)
+	userOut, err := user.Output()
+	if err != nil {
+		userName = "<username>"
+	} else {
+		userName = strings.TrimSuffix(string(userOut), "\n")
+	}
+
 	color.Blue("%s", "Can connect using:")
 	green := color.New(color.FgGreen)
 	boldGreen := green.Add(color.Bold)
-	boldGreen.Printf("psql -h localhost -U <email-id> -p %d -d postgres\n", port)
+	boldGreen.Printf("psql -h localhost -U %s -p %d -d postgres\n", userName, port)
 }
