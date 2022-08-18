@@ -14,7 +14,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "dbcon [sub]",
+	Use:   "lummo-sqlproxy [sub]",
 	Short: "CloudSQL Proxy CLI",
 }
 

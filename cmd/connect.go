@@ -8,12 +8,19 @@ import (
 	"os/exec"
 	"strconv"
 
+	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/sqladmin/v1"
 )
 
 var project string
+
+const (
+	InfoColor   = "\033[1;34m%s\033[0m"
+	NoticeColor = "\033[1;36m%s\033[0m"
+	GreenColor  = "\033[32m"
+)
 
 func setProject(env string) string {
 	switch env {
@@ -71,8 +78,10 @@ func getInstance(env string) string {
 		os.Exit(1)
 		return ""
 	}
-
-	fmt.Printf("You choose %q\n", result)
+	blue := color.New(color.FgBlue)
+	boldBlue := blue.Add(color.Bold)
+	boldBlue.Printf("You choose: %q\n", result)
+	// fmt.Printf("You choose %q\n", result)
 	return result
 }
 
@@ -86,4 +95,8 @@ func connectInstance(env string, port int) {
 		log.Fatal(err)
 	}
 	log.Printf("Cloudsql proxy process is running in background, process_id: %d\n", cmd.Process.Pid)
+	color.Blue("%s", "Can connect using:")
+	green := color.New(color.FgGreen)
+	boldGreen := green.Add(color.Bold)
+	boldGreen.Printf("psql -h localhost -U <email-id> -p %d -d postgres\n", port)
 }
