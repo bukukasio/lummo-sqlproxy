@@ -1,6 +1,7 @@
 # Usage
 
 **To connect a database instance** <br />
+![gif directory](../assets/connect.gif) <br />
 `lummo-sqlproxy connect --env=<env> --port=<port-number>` <br />
 By default `env=dev` and `port=5432` and are optional <br />
 <br />
