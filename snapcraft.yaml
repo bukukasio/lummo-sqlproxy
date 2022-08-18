@@ -1,0 +1,21 @@
+name: lummo-sqlproxy
+version: '1.0'
+summary: CLI tool to connect CloudSQL instances using google cloud_sql_proxy
+description: |
+  An interactive prompt to connect CloudSQL instances using google cloud_sql_proxy
+
+confinement: devmode
+base: core18
+
+parts:
+  lummo-sqlproxy:
+    plugin: go
+    go-importpath: github.com/bukukasio/lummo-sqlproxy
+    source: https://github.com/bukukasio/lummo-sqlproxy
+    source-type: git
+    build-packages:
+      - gcc
+
+apps:
+  lummo-sqlproxy:
+    command: bin/lummo-sqlproxy

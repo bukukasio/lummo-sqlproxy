@@ -31,4 +31,4 @@ brews:
     owner: bukukasio
     name: homebrew-tools
   post_install: |
-    bash install_cloudsql_proxy.sh
+    system "bash", "scripts/bash install_prerequisites.sh"
