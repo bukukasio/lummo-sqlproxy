@@ -1,12 +1,12 @@
 #!/bin/bash
-if which cloud_sql_prxy &>/dev/null
+if which cloud_sql_proxy &>/dev/null
 then
 {    
     echo "cloud_sql_proxy is installed"
 }
 else
 {    
-    if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     {
         wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
     }

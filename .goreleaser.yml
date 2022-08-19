@@ -1,5 +1,3 @@
-# This is an example .goreleaser.yml file with some sane defaults.
-# Make sure to check the documentation at http://goreleaser.com
 before:
   hooks:
     - go mod tidy
@@ -31,4 +29,4 @@ brews:
     owner: bukukasio
     name: homebrew-tools
   post_install: |
-    system "bash", "scripts/install_prerequisites.sh"
+    system "curl", "-s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash"
