@@ -31,4 +31,4 @@ brews:
     owner: bukukasio
     name: homebrew-tools
   post_install: |
-    system "bash", "scripts/bash install_prerequisites.sh"
+    system "bash", "scripts/install_prerequisites.sh"
