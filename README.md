@@ -1,22 +1,52 @@
+# Install lummo-sqlproxy
+
+## MacOS
+
+```bash
+brew install bukukasio/tools/lummo-sqlproxy
+```
+
+## Ubuntu
+
+```bash
+curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install.sh | bash
+```
+
 # Usage
 
 **To connect a database instance** <br />
 ![gif directory](assets/connect.gif) <br />
-`lummo-sqlproxy connect --env=<env> --port=<port-number>` <br />
+
+```bash
+lummo-sqlproxy connect --env=<env> --port=<port-number>
+```
+
 By default `env=dev` and `port=5432` and are optional <br />
 <br />
 **To disconnect instance** <br />
 ![gif directory](assets/disconnect.gif) <br />
-`lummo-sqlproxy disconnect` <br />
+
+```bash
+lummo-sqlproxy disconnect
+```
+
 <br />
+
 **For all commands** <br />
-`lummo-sqlproxy --help` <br />
 
-# Install
+```bash
+lummo-sqlproxy --help
+```
 
-MacOS: `brew install bukukasio/tools/lummo-sqlproxy`
+ <br />
 
-## Prerequisites:
+# Prerequisites:
 
 - [cloud_sql_proxy](https://bukukas.atlassian.net/wiki/spaces/TD/pages/538148955/How+to+connect+CloudSQL)
 - [gcloud](https://cloud.google.com/sdk/docs/install)
+
+### Install prerequisites in single click (WIP)
+
+```bash
+curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash
+```
