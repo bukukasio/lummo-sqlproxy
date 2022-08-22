@@ -13,9 +13,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version = "0.0.1"
 var rootCmd = &cobra.Command{
-	Use:   "lummo-sqlproxy [sub]",
-	Short: "CloudSQL Proxy CLI",
+	Use:     "lummo-sqlproxy [sub]",
+	Version: version,
+	Short:   "CloudSQL Proxy CLI",
 }
 
 var connectCmd = &cobra.Command{
@@ -44,6 +46,7 @@ var disconnectCmd = &cobra.Command{
 		disconnectInstance()
 	},
 }
+
 
 func Execute() {
 	err := connectCmd.Execute()

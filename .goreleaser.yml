@@ -4,6 +4,8 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
+    ldflags:
+      - -X bukukasio/lummo-sqlproxy/cmd.version={{.Env.VERSION}}
     goos:
       - linux
       - darwin
