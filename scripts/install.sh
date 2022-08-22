@@ -1,5 +1,11 @@
 #!/bin/bash
-curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash
+if which cloud_sql_proxy &>/dev/null
+then
+{    
+    which lummo-sqlproxy | xargs sudo rm -rf 
+}
+fi
+# curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash
 LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/bukukasio/lummo-sqlproxy/releases/latest)
 LATEST_VERSION_TAG=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 LATEST_VERSION="${LATEST_VERSION_TAG:1}"
