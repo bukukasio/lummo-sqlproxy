@@ -28,5 +28,6 @@ brews:
   tap:
     owner: bukukasio
     name: homebrew-tools
-  post_install: |
-    system "curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash"
+  ## TODO: fix the script to run on macOS
+  # post_install: |
+  #   system "curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/scripts/install_prerequisites.sh | bash"
