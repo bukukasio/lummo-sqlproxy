@@ -54,6 +54,6 @@ func Execute() {
 
 func init() {
 	rootCmd.AddCommand(disconnectCmd, connectCmd)
-	connectCmd.PersistentFlags().String("env", "dev", "environment\nSupported environments: dev, staging, prod\n")
-	connectCmd.PersistentFlags().Int("port", 5432, "port")
+	connectCmd.PersistentFlags().StringP("env", "e", "dev", "environment\nSupported environments: dev, staging, prod\n")
+	connectCmd.PersistentFlags().IntP("port", "p", 5432, "port")
 }
