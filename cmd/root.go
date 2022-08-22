@@ -21,6 +21,7 @@ var rootCmd = &cobra.Command{
 var connectCmd = &cobra.Command{
 	Use:   "connect",
 	Short: "connect to cloudsql instance",
+	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		env, _ := cmd.Flags().GetString("env")
 		port, _ := cmd.Flags().GetInt("port")
@@ -38,7 +39,7 @@ var connectCmd = &cobra.Command{
 var disconnectCmd = &cobra.Command{
 	Use:   "disconnect",
 	Short: "disconnect cloudsql instance proxy",
-	// Args:  cobra.ExactArgs(2),
+	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		disconnectInstance()
 	},

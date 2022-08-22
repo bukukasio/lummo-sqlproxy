@@ -24,6 +24,7 @@ const (
 )
 
 func setProject(env string) string {
+	// TODO: get project list with gcloud sdk
 	switch env {
 	case "dev":
 		project = "beecash-staging"
