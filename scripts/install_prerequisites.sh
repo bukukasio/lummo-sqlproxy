@@ -19,7 +19,7 @@ else
             gcloud auth application-default login
         }
         fi
-        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+        wget -q https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
     }
     elif [[ "$OSTYPE" == "darwin"* ]]; then
     {
@@ -35,11 +35,11 @@ else
         fi
         if [ "${arch_name}" = "x86_64" ]; then
         {
-            curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+            curl -s -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
         }
         else
         {
-            curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.arm64
+            curl -s -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.arm64
         }
         fi
     }
