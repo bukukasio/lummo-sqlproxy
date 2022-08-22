@@ -27,9 +27,9 @@ else
             echo "gcloud is installed"
         else
         {    
-            brew tap caskroom/cask
-            brew cask install google-cloud-sdk
-            source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+            brew tap homebrew/cask
+            brew install google-cloud-sdk --cask
+            echo 'source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"' >> ~/.bashrc
             gcloud auth application-default login
         }
         fi
