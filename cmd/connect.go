@@ -41,6 +41,7 @@ func getProject() string {
 	prompt := promptui.Select{
 		Label: "Select GCP Project",
 		Items: proj_id,
+		Size:  10,
 	}
 
 	_, result, err := prompt.Run()
@@ -89,6 +90,7 @@ func getInstance() string {
 	prompt := promptui.Select{
 		Label: "Select instance to connect",
 		Items: instancelist,
+		Size:  10,
 	}
 
 	_, result, err := prompt.Run()
