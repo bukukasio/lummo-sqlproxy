@@ -18,10 +18,10 @@ curl -s https://raw.githubusercontent.com/bukukasio/lummo-sqlproxy/master/script
 ![gif directory](assets/connect.gif) <br />
 
 ```bash
-lummo-sqlproxy connect --env=<env> --port=<port-number>
+lummo-sqlproxy connect --port=<port-number>
 ```
 
-By default `env=dev` and `port=5432` and are optional <br />
+By default `port=5432` and is optional <br />
 <br />
 **To disconnect instance** <br />
 ![gif directory](assets/disconnect.gif) <br />
