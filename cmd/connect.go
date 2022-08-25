@@ -8,6 +8,9 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/briandowns/spinner"
 
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
@@ -23,20 +26,35 @@ const (
 	GreenColor  = "\033[32m"
 )
 
-func setProject(env string) string {
-	// TODO: get project list with gcloud sdk
-	switch env {
-	case "dev":
-		project = "beecash-staging"
-	case "staging":
-		project = "beecash-staging"
-	case "prod":
-		project = "tokko-production"
-	default:
-		fmt.Print("Invalid Environment\n Please enter a valid environment: dev, staging, prod\n")
-		os.Exit(1)
+func getProject() string {
+	var proj_id []string
+	getprojectcommand := fmt.Sprintf("gcloud projects list --format='value(project_id)'")
+	getproject := exec.Command("bash", "-c", getprojectcommand)
+	getprojectout, err := getproject.Output()
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		proj := strings.TrimSuffix(string(getprojectout), "\n")
+		proj_id = strings.Split(proj, "\n")
 	}
-	return project
+
+	prompt := promptui.Select{
+		Label: "Select GCP Project",
+		Items: proj_id,
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		os.Exit(1)
+		return ""
+	}
+
+	fmt.Printf("Project ID: %q\n", result)
+	promptresult := strings.Split(result, ":")
+	project_id := promptresult[len(promptresult)-1]
+	return project_id
 }
 
 func listInstances(project string) []string {
@@ -65,11 +83,11 @@ func listInstances(project string) []string {
 	return list
 }
 
-func getInstance(env string) string {
-	project := setProject(env)
+func getInstance() string {
+	project := getProject()
 	instancelist := listInstances(project)
 	prompt := promptui.Select{
-		Label: "Select Project" + project,
+		Label: "Select instance to connect",
 		Items: instancelist,
 	}
 
@@ -83,13 +101,12 @@ func getInstance(env string) string {
 	blue := color.New(color.FgBlue)
 	boldBlue := blue.Add(color.Bold)
 	boldBlue.Printf("You choose: %q\n", result)
-	// fmt.Printf("You choose %q\n", result)
 	return result
 }
 
-func connectInstance(env string, port int) {
+func connectInstance(port int) {
 	var userName string
-	sqlConnectionName := getInstance(env)
+	sqlConnectionName := getInstance()
 	fmt.Println("Connecting Instance")
 	cmd := exec.Command("cloud_sql_proxy", "-enable_iam_login", "-instances="+sqlConnectionName+"=tcp:"+strconv.Itoa(port))
 	cmd.Stdout = os.Stdout
@@ -97,6 +114,13 @@ func connectInstance(env string, port int) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// Loading spinner
+	s := spinner.New(spinner.CharSets[39], 100*time.Millisecond)
+	s.Start()
+	time.Sleep(2 * time.Second)
+	s.Stop()
+
 	log.Printf("Cloudsql proxy process is running in background, process_id: %d\n", cmd.Process.Pid)
 
 	command := fmt.Sprintf("gcloud auth list --filter=status:ACTIVE --format='value(account)'")

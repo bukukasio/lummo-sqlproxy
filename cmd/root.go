@@ -1,7 +1,3 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
@@ -25,16 +21,13 @@ var connectCmd = &cobra.Command{
 	Short: "connect to cloudsql instance",
 	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		env, _ := cmd.Flags().GetString("env")
 		port, _ := cmd.Flags().GetInt("port")
-		fmt.Printf("Environment: %v\n", env)
 		_, err := net.Listen("tcp", ":"+strconv.Itoa(port))
 		if err != nil {
-			// Log or report the error here
 			fmt.Printf("Port already in use\n")
 			os.Exit(1)
 		}
-		connectInstance(env, port)
+		connectInstance(port)
 	},
 }
 
@@ -47,6 +40,14 @@ var disconnectCmd = &cobra.Command{
 	},
 }
 
+var doctorCmd = &cobra.Command{
+	Use:   "doctor",
+	Short: "for troubleshooting",
+	Args:  cobra.NoArgs,
+	Run: func(cmd *cobra.Command, args []string) {
+		doctor()
+	},
+}
 
 func Execute() {
 	err := connectCmd.Execute()
@@ -56,7 +57,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(disconnectCmd, connectCmd)
-	connectCmd.PersistentFlags().StringP("env", "e", "dev", "environment\nSupported environments: dev, staging, prod\n")
+	rootCmd.AddCommand(disconnectCmd, connectCmd, doctorCmd)
 	connectCmd.PersistentFlags().IntP("port", "p", 5432, "port")
 }
