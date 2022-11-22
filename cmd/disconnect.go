@@ -15,8 +15,8 @@ func getPort() string {
 	processlist := exec.Command("bash", "-c", command)
 	output, _ := processlist.Output()
 	line := strings.TrimSuffix(string(output), "\n") // removing newline
-	str := strings.Split(line, "\n")  // splitting on newline
-	if str[0] == "" { // if no process is running
+	str := strings.Split(line, "\n")                 // splitting on newline
+	if str[0] == "" {                                // if no process is running
 		fmt.Println("No Instance connected")
 		os.Exit(1)
 

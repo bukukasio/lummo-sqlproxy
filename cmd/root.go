@@ -49,6 +49,15 @@ var doctorCmd = &cobra.Command{
 	},
 }
 
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "list active connections",
+	Args:  cobra.NoArgs,
+	Run: func(cmd *cobra.Command, args []string) {
+		listConn()
+	},
+}
+
 func Execute() {
 	err := connectCmd.Execute()
 	if err != nil {
@@ -57,6 +66,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(disconnectCmd, connectCmd, doctorCmd)
+	rootCmd.AddCommand(disconnectCmd, connectCmd, doctorCmd, listCmd)
 	connectCmd.PersistentFlags().IntP("port", "p", 5432, "port")
 }
