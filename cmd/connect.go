@@ -26,6 +26,8 @@ const (
 	GreenColor  = "\033[32m"
 )
 
+// The function gets a list of all the projects in the GCP account, then prompts the user to select one
+// of the projects
 func getProject() string {
 	var proj_id []string
 	getprojectcommand := fmt.Sprintf("gcloud projects list --format='value(project_id)'")
@@ -58,6 +60,7 @@ func getProject() string {
 	return project_id
 }
 
+// It uses the Google Cloud SQL Admin API to list all the instances in a project
 func listInstances(project string) []string {
 	var list []string
 	ctx := context.Background()
@@ -84,6 +87,7 @@ func listInstances(project string) []string {
 	return list
 }
 
+// It takes a list of instances, prompts the user to select one, and returns the selected instance
 func getInstance() string {
 	project := getProject()
 	instancelist := listInstances(project)
@@ -106,6 +110,8 @@ func getInstance() string {
 	return result
 }
 
+// It starts a background process that runs the `cloud_sql_proxy` command, and then prints out the
+// command to connect to the database
 func connectInstance(port int) {
 	var userName string
 	sqlConnectionName := getInstance()

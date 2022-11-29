@@ -10,6 +10,8 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
+// It gets the list of all the processes running and then prompts the user to select the process to be
+// killed
 func getPort() string {
 	command := fmt.Sprintf("ps aux  | grep cloud_sql_proxy | grep -v grep | awk -F '-instances=' '{print $NF}'") //print only the cloudsql proxy process
 	processlist := exec.Command("bash", "-c", command)
@@ -42,6 +44,13 @@ func getPort() string {
 	return port
 }
 
+// `lsof -i tcp:<port> | grep LISTEN | awk '{print }' | xargs kill -9`
+// 
+// The `lsof` command lists all open files. The `-i` flag filters the list to only include files that
+// are using the specified internet address. The `tcp:<port>` flag specifies the port number. The
+// `grep` command filters the list to only include files that are listening. The `awk` command prints
+// the second column of the output, which is the process ID. The `xargs` command executes the `kill -9`
+// command on the process ID. The `kill -9` command kills the process
 func disconnectInstance() {
 	port := getPort()
 	command := fmt.Sprintf("lsof -i tcp:%s | grep LISTEN | awk '{print $2}' | xargs kill -9", port) //kill the port

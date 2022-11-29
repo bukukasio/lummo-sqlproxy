@@ -16,6 +16,7 @@ var rootCmd = &cobra.Command{
 	Short:   "CloudSQL Proxy CLI",
 }
 
+// Connect command to connect to the db instance
 var connectCmd = &cobra.Command{
 	Use:   "connect",
 	Short: "connect to cloudsql instance",
@@ -31,6 +32,7 @@ var connectCmd = &cobra.Command{
 	},
 }
 
+// Command to disconnect the active db connections
 var disconnectCmd = &cobra.Command{
 	Use:   "disconnect",
 	Short: "disconnect cloudsql instance proxy",
@@ -40,6 +42,7 @@ var disconnectCmd = &cobra.Command{
 	},
 }
 
+// Command to check the prerequisite conditions are met or not
 var doctorCmd = &cobra.Command{
 	Use:   "doctor",
 	Short: "for troubleshooting",
@@ -49,6 +52,7 @@ var doctorCmd = &cobra.Command{
 	},
 }
 
+// Command to list the active connections
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list active connections",

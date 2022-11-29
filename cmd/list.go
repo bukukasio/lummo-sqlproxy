@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 )
 
+// Function lists the active DB connections
 func listConn() {
 	command := fmt.Sprintf("ps aux  | grep cloud_sql_proxy | grep -v grep | awk -F '-instances=' '{print $NF}'") //print only the cloudsql proxy process
 	processlist := exec.Command("bash", "-c", command)
